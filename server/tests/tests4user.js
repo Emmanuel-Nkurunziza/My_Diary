@@ -25,10 +25,7 @@ describe('incorrect route', () => {
   });
 });
 
-
 // user sign up
-
-
 describe('POST signup,api/v1/auth/signup', () => {
   it('should return firstName is required', (done) => {
     chai.request(server)
@@ -42,8 +39,6 @@ describe('POST signup,api/v1/auth/signup', () => {
         done();
       });
   });
-
-
   it('should return lastName is required', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
@@ -56,7 +51,6 @@ describe('POST signup,api/v1/auth/signup', () => {
         done();
       });
   });
-
   it('should return Email is required', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
@@ -69,7 +63,6 @@ describe('POST signup,api/v1/auth/signup', () => {
         done();
       });
   });
-
   it('should return Email is short', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
@@ -82,7 +75,6 @@ describe('POST signup,api/v1/auth/signup', () => {
         done();
       });
   });
-
   it('User sign up successfully', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
@@ -119,6 +111,23 @@ describe('POST signup,api/v1/auth/signup', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(409);
         expect(res.body.status).to.equal(409);
+        done();
+      });
+  });
+});
+
+// User sign in 
+describe('POST signin  api/v1/auth/signin', () => {
+  it('should return email must be inserted', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[4])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(401);
+        expect(res.body.status).to.equal(401);
+        expect(res.body.error).to.equal('incorect email or password');
         done();
       });
   });
