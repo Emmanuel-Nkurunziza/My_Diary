@@ -399,7 +399,7 @@ img {
   color: #000000;
   text-align: center;
   border-radius: 10px;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid rgb(0,0,0,0.3);
 }
 
 .story-box-content {
