@@ -7,6 +7,7 @@ const router = express.Router();
 
 
 router.post('/auth/signup', signUpSchema, Controller4user.signUp);
+router.post('/auth/signin', Controller4user.signIn);
 
 
 export default router;
