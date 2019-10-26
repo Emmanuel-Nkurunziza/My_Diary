@@ -14,5 +14,6 @@ router.post('/entries', authanticate, createEntrySchema, Controller4entry.create
 router.patch('/entries/:entryId', authanticate, createEntrySchema, Controller4entry.editEntry);
 router.get('/entries', authanticate, Controller4entry.getAllEntries);
 router.get('/entries/:entryId', authanticate, Controller4entry.getSpecificEntry);
+router.delete('/entries/:entryId', authanticate, Controller4entry.deleteEntry);
 
 export default router;
