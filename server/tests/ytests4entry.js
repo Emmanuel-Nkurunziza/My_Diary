@@ -117,6 +117,25 @@ describe('POST entries ,/api/v1/entries', () => {
       });
   });
 
+  // Get All Entries (tested before, the POST of the entry successfully created )
+  it('should return:"Your entries  are not found!"', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      // no .send(entries[2])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        expect(res.body.message).to.equal('No story created yet');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   it('should return entry successfully created', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
@@ -212,6 +231,35 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
       .set('authorization', userToken)
       .set('Accept', 'application/json')
       .send(entries[4])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+
+// Get all entries
+describe('GET entries ,/api/v1/entries', () => {
+  beforeEach((done) => {
+    chai.request(server).post('/api/v1/auth/signin').send({
+      email: 'emmanuel@gmail.com',
+      password: 'nkurunziza123',
+    }).then((res) => {
+      userToken = res.body.data.token;
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return:"All your available entries are:"', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
       .then((res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(200);
