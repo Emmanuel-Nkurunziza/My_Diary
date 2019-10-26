@@ -11,6 +11,6 @@ const router = express.Router();
 router.post('/auth/signup', signUpSchema, Controller4user.signUp);
 router.post('/auth/signin', Controller4user.signIn);
 router.post('/entries', authanticate, createEntrySchema, Controller4entry.createEntry);
-
+router.patch('/entries/:entryId', authanticate, createEntrySchema, Controller4entry.editEntry);
 
 export default router;

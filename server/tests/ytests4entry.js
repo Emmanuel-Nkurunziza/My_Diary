@@ -135,3 +135,91 @@ describe('POST entries ,/api/v1/entries', () => {
       });
   });
 });
+
+// Modify Entry
+describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
+  beforeEach((done) => {
+    chai.request(server).post('/api/v1/auth/signin').send({
+      email: 'emmanuel@gmail.com',
+      password: 'nkurunziza123',
+    }).then((res) => {
+      userToken = res.body.data.token;
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return id is not number ', (done) => {
+    chai.request(server)
+      .patch('/api/v1/entries/wrt')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .send(entries[4])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return id is not found ', (done) => {
+    chai.request(server)
+      .patch('/api/v1/entries/10')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .send(entries[4])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  beforeEach((done) => {
+    chai.request(server).post('/api/v1/auth/signin').send({
+      email: 'emmanuel1@gmail.com',
+      password: 'nkurunziza12345',
+    }).then((res) => {
+      wrongToken = res.body.data.token;
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return this entry does not belongs to you ', (done) => {
+    chai.request(server)
+      .patch('/api/v1/entries/1')
+      .set('authorization', wrongToken)
+      .set('Accept', 'application/json')
+      .send(entries[4])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal(403);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return entry successfully edited', (done) => {
+    chai.request(server)
+      .patch('/api/v1/entries/1')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .send(entries[4])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
