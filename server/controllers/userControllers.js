@@ -42,7 +42,6 @@ class Controller4user {
       email, password,
     } = req.body;
 
-    // first check if email correspond to its password
     const isUserExist = users.find((user) => (user.email === email)
       && (passdecrypt(password, user.password)));
     if (!isUserExist) {
@@ -53,9 +52,8 @@ class Controller4user {
     }
     const token = generateToken(email);
 
-
     return res.status(200).send({
-      status: 200, // ok
+      status: 200, 
       message: 'User is successfully logged in',
       data: {
         token,

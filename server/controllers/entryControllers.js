@@ -16,7 +16,7 @@ class Controller4entry {
     const date = entryTimeStamp();
     const entry = new Entry(entries.length + 1, title, date, description, authEmail);
     entries.push(entry);
-    // console.log(entry);
+    
     return res.status(200).send({
       status: 200,
       message: 'Entry created successfully',
@@ -59,6 +59,25 @@ class Controller4entry {
       status: 200,
       message: 'Story was edited successfully',
       data: editableEntry,
+    });
+  }
+
+  //get all entries
+  static getAllEntries = (req, res) => {
+    const authEmail = emailDecrypt(req.header('authorization'));
+    entries.reverse(); // sorting in a descending order
+    const userEntries = entries.filter((entry) => entry.userEmail
+      === authEmail); // filter for a lot of things
+    if (userEntries.length === 0) {
+      return res.status(404).send({
+        status: 404,
+        message: 'No story created yet',
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      message: 'stories are successfully displayed',
+      data: userEntries,
     });
   }
 }
