@@ -117,6 +117,37 @@ class Controller4entry {
       data: specificEntry,
     });
   }
+
+  // delete entry
+  static deleteEntry = (req, res) => {
+    const authEmail = emailDecrypt(req.header('authorization'));
+    let { entryId } = req.params;
+    if (isNaN(entryId)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'The entry id should be a number',
+      });
+    }
+    const entryToBeDeleted = entries.find((entry) => entry.id === parseInt(entryId, 10));
+    if (!entryToBeDeleted) {
+      return res.status(404).send({
+        status: 404,
+        message: 'Non existing text entry',
+      });
+    }
+
+    if (entryToBeDeleted.userEmail !== authEmail) {
+      return res.status(403).send({
+        status: 403,
+        error: 'You are not authorized to take this action!',
+      });
+    }
+    entries.splice(entries.indexOf(entryToBeDeleted), 1);
+    return res.status(200).send({
+      status: 200,
+      message: 'Story has been deleted successfully!',
+    });
+  }
 }
 
 export default Controller4entry;
