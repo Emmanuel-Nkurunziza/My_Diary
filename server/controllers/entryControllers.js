@@ -65,9 +65,9 @@ class Controller4entry {
   //get all entries
   static getAllEntries = (req, res) => {
     const authEmail = emailDecrypt(req.header('authorization'));
-    entries.reverse(); // sorting in a descending order
+    entries.reverse(); 
     const userEntries = entries.filter((entry) => entry.userEmail
-      === authEmail); // filter for a lot of things
+      === authEmail); 
     if (userEntries.length === 0) {
       return res.status(404).send({
         status: 404,
@@ -78,6 +78,43 @@ class Controller4entry {
       status: 200,
       message: 'stories are successfully displayed',
       data: userEntries,
+    });
+  }
+
+  // get specific entry
+  static getSpecificEntry = (req, res) => {
+    const authEmail = emailDecrypt(req.header('authorization'));
+    let { entryId } = req.params;
+    const specificEntry = entries.find((entry) => entry.id
+      === parseInt(entryId, 10)); 
+    if (isNaN(entryId)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'The entry id should be a number',
+      });
+    }
+    if (!entryId) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Non existing text id!',
+      });
+    }
+    if (!specificEntry) {
+      return res.status(404).send({
+        status: 404,
+        message: 'Non existing text entry',
+      });
+    }
+    if (specificEntry.userEmail !== authEmail) {
+      return res.status(403).send({
+        status: 403,
+        message: 'You are not authorized to take this action!',
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      message: 'Story is displayed successfully',
+      data: specificEntry,
     });
   }
 }

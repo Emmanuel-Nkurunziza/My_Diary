@@ -271,3 +271,78 @@ describe('GET entries ,/api/v1/entries', () => {
       });
   });
 });
+
+// Get specific entry
+describe('GET entries ,/api/v1/entries/:entryId', () => {
+  beforeEach((done) => {
+    chai.request(server).post('/api/v1/auth/signin').send({
+      email: 'emmanuel@gmail.com',
+      password: 'nkurunziza123',
+    }).then((res) => {
+      userToken = res.body.data.token;
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return: "id is not number"', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries/wrt')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return: "not found id" ', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries/10')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return:"this entry belongs to someone else"', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries/1')
+      .set('authorization', wrongToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal(403);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return: "Story is displayed successfully"', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries/1')
+      .set('authorization', userToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.message).to.equal('Story is displayed successfully');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
