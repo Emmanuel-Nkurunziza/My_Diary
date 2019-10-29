@@ -24,12 +24,15 @@ class Controller4user {
     // then create account
     const user = new User(users.length + 1, email, firstName, lastName, hashedPass);
     users.push(user);
-    const token = generateToken(email);
+    const token = generateToken(user.id);
     return res.status(201).json({
       status: 201,
       message: 'User created successfully',
       data: {
         id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
         token,
       },
     });
@@ -50,12 +53,15 @@ class Controller4user {
         error: 'incorect email or password',
       });
     }
-    const token = generateToken(email);
+
+    const token = generateToken(isUserExist.id);
 
     return res.status(200).send({
-      status: 200, 
+      status: 200,
       message: 'User is successfully logged in',
       data: {
+        firstName: isUserExist.firstName,
+        lastName: isUserExist.lastName,
         token,
       },
     });

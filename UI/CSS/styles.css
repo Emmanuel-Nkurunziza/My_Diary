@@ -495,11 +495,16 @@ img {
   align-items: center;
   margin-top: 20px;
 }
-
+.paddingwthButton {
+  transform: translate(-40px, 0px);
+}
 /* styles of the Edit entries */
 .edit-mode {
   padding: 20px;
-  background: #dadada;
+  /* background: #dadada; */
+}
+.entry-style .text-buttons .text-date {
+  transform: translate(-20px, 0px);
 }
 
 /* styles of the delete modal */

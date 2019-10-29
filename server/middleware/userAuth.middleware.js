@@ -12,7 +12,7 @@ const authanticate = (req, res, next) => {
   }
   try {
     const userData = emailDecrypt(token);
-    const user = users.find((u) => u.email === userData);
+    const user = users.find((u) => u.id === userData);
     if (!user) {
       return res.status(401).send({
         status: 401,
@@ -22,8 +22,8 @@ const authanticate = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(400).send({
-      status: 400,
+    return res.status(401).send({
+      status: 401,
       error: error.message,
     });
   }

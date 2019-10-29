@@ -116,7 +116,7 @@ describe('POST signup,api/v1/auth/signup', () => {
   });
 });
 
-// User sign in 
+// User sign in
 describe('POST signin  api/v1/auth/signin', () => {
   it('should return email must be inserted', (done) => {
     chai.request(server)
