@@ -62,6 +62,7 @@ class Controller4user {
       data: {
         firstName: isUserExist.firstName,
         lastName: isUserExist.lastName,
+        email: isUserExist.email,
         token,
       },
     });

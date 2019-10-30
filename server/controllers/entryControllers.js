@@ -70,9 +70,7 @@ class Controller4entry {
     const authEmail = emailDecrypt(req.header('authorization'));
     const userEntries = entries.filter((entry) => entry.userId === authEmail);
     userEntries.reverse();
-    let {
-      page_index,
-    } = req.body;
+    let page_index = req.query.p * 1;
     let entryNumber = userEntries.length;
     const item_per_page = 3;
     const total_items = entryNumber;
