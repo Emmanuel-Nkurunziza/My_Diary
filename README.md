@@ -1,3 +1,9 @@
+[![Build Status](https://travis-ci.com/Emmanuel-Nkurunziza/My_Diary.svg?branch=develop)](https://travis-ci.com/Emmanuel-Nkurunziza/My_Diary)
+[![Coverage Status](https://coveralls.io/repos/github/Emmanuel-Nkurunziza/My_Diary/badge.svg?branch=develop)](https://coveralls.io/github/Emmanuel-Nkurunziza/My_Diary?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9a0cc9305242f51b7059/maintainability)](https://codeclimate.com/github/Emmanuel-Nkurunziza/My_Diary/maintainability)
+
+
+
 #  My_Diary
 > My_Diary App aims at collecting the entire spectrum of your daily thoughts and feeling, ups and downs, in a written form to keep them memorable.
 
