@@ -1,0 +1,59 @@
+{
+  "name": "my_diary",
+  "version": "1.0.0",
+  "description": "App aims at collecting the entire spectrum of your daily thoughts and feeling, ups and downs, in a written form, to keep them memorable.",
+  "main": "server.js",
+  "dependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "@babel/runtime": "^7.6.3",
+    "@hapi/joi": "^16.1.7",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "js-yaml": "^3.13.1",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.1.1",
+    "swagger-ui-express": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-auto-fix": "^1.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "scripts": {
+    "test": "nyc --reporter=text --reporter=html mocha server/tests --require @babel/polyfill --require @babel/register --timeout 50000 --exit",
+    "start": " babel-node ./server/server.js",
+    "dev": " nodemon --exec babel-node server/server.js",
+    "elint": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emmanuel-Nkurunziza/My_Diary.git"
+  },
+  "keywords": [
+    "Node.js",
+    "express.js"
+  ],
+  "author": "Emmanuel Nkurunziza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emmanuel-Nkurunziza/My_Diary/issues"
+  },
+  "homepage": "https://github.com/Emmanuel-Nkurunziza/My_Diary#readme"
+}

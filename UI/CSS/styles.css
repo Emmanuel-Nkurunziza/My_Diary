@@ -399,7 +399,7 @@ img {
   color: #000000;
   text-align: center;
   border-radius: 10px;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid rgb(0,0,0,0.3);
 }
 
 .story-box-content {
@@ -495,11 +495,19 @@ img {
   align-items: center;
   margin-top: 20px;
 }
-
+.paddingwthButton {
+  transform: translate(-40px, 0px);
+}
 /* styles of the Edit entries */
 .edit-mode {
   padding: 20px;
-  background: #dadada;
+}
+.entry-style .text-buttons .text-date {
+  transform: translate(-20px, 0px);
+}
+.text-buttons .style-save-modify-button a {
+padding: 0 40px 0 40px;
+font-weight: bold;
 }
 
 /* styles of the delete modal */
