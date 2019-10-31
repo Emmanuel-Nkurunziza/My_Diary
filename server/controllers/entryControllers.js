@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Entry } from '../models/entry';
 import { emailDecrypt } from '../helpers/helpers4entry';
 import entryTimeStamp from '../helpers/entryCreationTime';
@@ -16,7 +17,7 @@ class Controller4entry {
     const date = entryTimeStamp();
     const entry = new Entry(entries.length + 1, title, date, description, authEmail);
     entries.push(entry);
-    
+    // console.log(entry);
     return res.status(200).send({
       status: 200,
       message: 'Entry created successfully',
@@ -24,7 +25,7 @@ class Controller4entry {
     });
   }
 
-  // Modify Entry 
+  // Modify Entry
   static editEntry = (req, res) => {
     let {
       title, description,
@@ -39,13 +40,14 @@ class Controller4entry {
     const authEmail = emailDecrypt(req.header('authorization'));
 
     const editableEntry = entries.find((entry) => entry.id === parseInt(entryId, 10));
+
     if (!editableEntry) {
       return res.status(404).send({
         status: 404,
         message: 'Non existing text entry',
       });
     }
-    if (editableEntry.userEmail !== authEmail) {
+    if (editableEntry.userId !== authEmail) {
       return res.status(403).send({
         status: 403,
         message: 'You are not authorized to take this action!',
@@ -59,15 +61,24 @@ class Controller4entry {
       status: 200,
       message: 'Story was edited successfully',
       data: editableEntry,
+      editedOn: entryTimeStamp(),
     });
   }
 
-  //get all entries
+  // get all entries
   static getAllEntries = (req, res) => {
     const authEmail = emailDecrypt(req.header('authorization'));
-    entries.reverse(); 
-    const userEntries = entries.filter((entry) => entry.userEmail
-      === authEmail); 
+    const userEntries = entries.filter((entry) => entry.userId === authEmail);
+    userEntries.reverse();
+    let page_index = req.query.p * 1;
+    let entryNumber = userEntries.length;
+    const item_per_page = 3;
+    const total_items = entryNumber;
+    const total_page = Math.ceil(entryNumber / item_per_page);
+    const starting_item_index = (item_per_page * page_index) - item_per_page;
+    const end_item_index = (item_per_page * page_index);
+    let data = userEntries.slice(starting_item_index, end_item_index);
+    const item_on_page = data.length;
     if (userEntries.length === 0) {
       return res.status(404).send({
         status: 404,
@@ -77,7 +88,12 @@ class Controller4entry {
     return res.status(200).send({
       status: 200,
       message: 'stories are successfully displayed',
-      data: userEntries,
+      total_items,
+      total_page,
+      item_on_page,
+      item_per_page,
+      page_index,
+      data,
     });
   }
 
@@ -86,7 +102,7 @@ class Controller4entry {
     const authEmail = emailDecrypt(req.header('authorization'));
     let { entryId } = req.params;
     const specificEntry = entries.find((entry) => entry.id
-      === parseInt(entryId, 10)); 
+      === parseInt(entryId, 10));
     if (isNaN(entryId)) {
       return res.status(400).send({
         status: 400,
@@ -105,7 +121,7 @@ class Controller4entry {
         message: 'Non existing text entry',
       });
     }
-    if (specificEntry.userEmail !== authEmail) {
+    if (specificEntry.userId !== authEmail) {
       return res.status(403).send({
         status: 403,
         message: 'You are not authorized to take this action!',
@@ -136,7 +152,7 @@ class Controller4entry {
       });
     }
 
-    if (entryToBeDeleted.userEmail !== authEmail) {
+    if (entryToBeDeleted.userId !== authEmail) {
       return res.status(403).send({
         status: 403,
         error: 'You are not authorized to take this action!',

@@ -21,6 +21,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "dotenv": "^8.2.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "js-yaml": "^3.13.1",
@@ -38,7 +39,8 @@
   "scripts": {
     "test": "nyc --reporter=text --reporter=html mocha server/tests --require @babel/polyfill --require @babel/register --timeout 50000 --exit",
     "start": " babel-node ./server/server.js",
-    "dev": " nodemon --exec babel-node server/server.js"
+    "dev": " nodemon --exec babel-node server/server.js",
+    "elint": ""
   },
   "repository": {
     "type": "git",
