@@ -80,7 +80,7 @@ describe('POST signup,api/v1/auth/signup', () => {
         done();
       });
   });
-  it('Should return: User sign up successfully', (done) => {
+  it('Should return: User (mention user firstName) sign up successfully', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
@@ -89,12 +89,12 @@ describe('POST signup,api/v1/auth/signup', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
-        expect(res.body.message).to.equal('User created successfully');
+        expect(res.body.message).to.equal('Emmanuel created successfully');
         done();
       });
   });
   // a different user signup successfully
-  it('should return: a different User sign up successfully', (done) => {
+  it('should return: a different User (mention user firstName) sign up successfully', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
@@ -103,11 +103,11 @@ describe('POST signup,api/v1/auth/signup', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
-        expect(res.body.message).to.equal('User created successfully');
+        expect(res.body.message).to.equal('Emmanuel1 created successfully');
         done();
       });
   });
-  it('should return: User email has arleady been used', (done) => {
+  it('should return: User email (mention that email) has arleady been used', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
