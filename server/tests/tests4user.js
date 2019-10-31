@@ -90,6 +90,9 @@ describe('POST signup,api/v1/auth/signup', () => {
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
         expect(res.body.message).to.equal('Emmanuel created successfully');
+        expect(res.body.data.firstName).to.equal('Emmanuel');
+        expect(res.body.data.lastName).to.equal('Nkurunziza');
+        expect(res.body.data.email).to.equal('emmanuel@gmail.com');
         done();
       });
   });
