@@ -27,7 +27,7 @@ class Controller4user {
     const token = generateToken(user.id);
     return res.status(201).json({
       status: 201,
-      message: 'User created successfully',
+      message: `${user.firstName} created successfully`,
       data: {
         id: user.id,
         firstName: user.firstName,

@@ -32,7 +32,7 @@ describe('POST entries ,/api/v1/entries', () => {
     })
       .catch((err) => console.log(err));
   });
-  it('should return "title" is required ', (done) => {
+  it('should return: "title" is not allowed to be empty', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
       .set('authorization', userToken)
@@ -66,7 +66,7 @@ describe('POST entries ,/api/v1/entries', () => {
         console.log(err);
       });
   });
-  it('should return: "You haven\'t provide your token"', (done) => {
+  it('should return: "there is no token provided!"', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
       .set('authorization', token)
@@ -83,7 +83,7 @@ describe('POST entries ,/api/v1/entries', () => {
         console.log(err);
       });
   });
-  it('should return You are not authorized to perform this action', (done) => {
+  it('should return: You are not registered in my Diary!', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
       .set('authorization', nonExistToken)
@@ -100,7 +100,7 @@ describe('POST entries ,/api/v1/entries', () => {
         console.log(err);
       });
   });
-  it('should return jwt malformed', (done) => {
+  it('should return: jwt malformed', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
       .set('authorization', invalidToken)
@@ -108,8 +108,9 @@ describe('POST entries ,/api/v1/entries', () => {
       .send(entries[2])
       .then((res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal(400);
+        expect(res.status).to.equal(401);
+        expect(res.body.status).to.equal(401);
+        expect(res.body.error).to.equal('jwt malformed');
         done();
       })
       .catch((err) => {
@@ -167,7 +168,7 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
     })
       .catch((err) => console.log(err));
   });
-  it('should return id is not number ', (done) => {
+  it('should return: "The entry id should be a number"', (done) => {
     chai.request(server)
       .patch('/api/v1/entries/wrt')
       .set('authorization', userToken)
@@ -177,13 +178,14 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(400);
         expect(res.body.status).to.equal(400);
+        expect(res.body.error).to.equal('The entry id should be a number');
         done();
       })
       .catch((err) => {
         console.log(err);
       });
   });
-  it('should return id is not found ', (done) => {
+  it('should return : Non existing text entry', (done) => {
     chai.request(server)
       .patch('/api/v1/entries/10')
       .set('authorization', userToken)
@@ -193,6 +195,8 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(404);
         expect(res.body.status).to.equal(404);
+        expect(res.body.message).to.equal('Non existing text entry');
+
         done();
       })
       .catch((err) => {
@@ -209,7 +213,7 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
     })
       .catch((err) => console.log(err));
   });
-  it('should return this entry does not belongs to you ', (done) => {
+  it('should return: You are not authorized to take this action!', (done) => {
     chai.request(server)
       .patch('/api/v1/entries/1')
       .set('authorization', wrongToken)
@@ -219,13 +223,14 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(403);
         expect(res.body.status).to.equal(403);
+        expect(res.body.message).to.equal('You are not authorized to take this action!');
         done();
       })
       .catch((err) => {
         console.log(err);
       });
   });
-  it('should return entry successfully edited', (done) => {
+  it('should return: Story was edited successfully', (done) => {
     chai.request(server)
       .patch('/api/v1/entries/1')
       .set('authorization', userToken)
@@ -235,6 +240,7 @@ describe(' 4. PATCH entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(200);
         expect(res.body.status).to.equal(200);
+        expect(res.body.message).to.equal('Story was edited successfully');
         done();
       })
       .catch((err) => {
@@ -255,7 +261,7 @@ describe('GET entries ,/api/v1/entries', () => {
     })
       .catch((err) => console.log(err));
   });
-  it('should return:"All your available entries are:"', (done) => {
+  it('should return:"stories are successfully displayed"', (done) => {
     chai.request(server)
       .get('/api/v1/entries')
       .set('authorization', userToken)
@@ -264,6 +270,7 @@ describe('GET entries ,/api/v1/entries', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(200);
         expect(res.body.status).to.equal(200);
+        expect(res.body.message).to.equal('stories are successfully displayed');
         done();
       })
       .catch((err) => {
@@ -284,7 +291,7 @@ describe('GET entries ,/api/v1/entries/:entryId', () => {
     })
       .catch((err) => console.log(err));
   });
-  it('should return: "id is not number"', (done) => {
+  it('should return: "The entry id should be a number"', (done) => {
     chai.request(server)
       .get('/api/v1/entries/wrt')
       .set('authorization', userToken)
@@ -293,13 +300,14 @@ describe('GET entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(400);
         expect(res.body.status).to.equal(400);
+        expect(res.body.error).to.equal('The entry id should be a number');
         done();
       })
       .catch((err) => {
         console.log(err);
       });
   });
-  it('should return: "not found id" ', (done) => {
+  it('should return: "Non existing text entry" ', (done) => {
     chai.request(server)
       .get('/api/v1/entries/10')
       .set('authorization', userToken)
@@ -308,13 +316,14 @@ describe('GET entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(404);
         expect(res.body.status).to.equal(404);
+        expect(res.body.message).to.equal('Non existing text entry');
         done();
       })
       .catch((err) => {
         console.log(err);
       });
   });
-  it('should return:"this entry belongs to someone else"', (done) => {
+  it('should return:"You are not authorized to take this action!"', (done) => {
     chai.request(server)
       .get('/api/v1/entries/1')
       .set('authorization', wrongToken)
@@ -323,6 +332,7 @@ describe('GET entries ,/api/v1/entries/:entryId', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(403);
         expect(res.body.status).to.equal(403);
+        expect(res.body.message).to.equal('You are not authorized to take this action!');
         done();
       })
       .catch((err) => {

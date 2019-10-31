@@ -4,22 +4,22 @@ export const users = [
   // for signup
   // data 0 test firstName required
   {
-    first_name: '',
-    last_name: 'nkurunziza',
+    firstName: '',
+    lastName: 'nkurunziza',
     email: 'emmanuel@gmail.com',
     password: 'nkurunziza123',
   },
   // data 1 test lastName required
   {
-    first_name: 'Emmanuel',
-    last_name: '',
+    firstName: 'Emmanuel',
+    lastName: '',
     email: 'emmanuel@gmail.com',
     password: 'nkurunziza123',
   },
   // data 2 test email required
   {
-    first_name: 'Emmanuel',
-    last_name: 'Nkurunziza',
+    firstName: 'Emmanuel',
+    lastName: 'Nkurunziza',
     email: '',
     password: 'nkurunziza123',
   },
@@ -47,16 +47,23 @@ export const users = [
     email: 'emmanuel1@gmail.com',
     password: 'nkurunziza12345',
   },
-  // data # 5 a different user (successfully created)
+  // data # 7 a different user (successfully created)
   {
     email: 'emmanuel2@gmail.com',
     firstName: 'Emmanuel2',
     lastName: 'Nkurunziza2',
     password: 'nkurunziza123456789',
   },
-  // data # 6 a different user (signin)
+  // data # 8 a different user (signin)
   {
     email: 'emmanuel2@gmail.com',
     password: 'nkurunziza123456789',
+  },
+  // data # 9 short email
+  {
+    first_name: 'emmanuel',
+    last_name: 'nkurunziza',
+    email: 'e',
+    password: 'nkurunziza123',
   },
 ];
