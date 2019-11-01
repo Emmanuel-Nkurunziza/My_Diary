@@ -9,5 +9,5 @@ cache:
     - node_modules
 script:
   - npm test
-after_sucess:
-  - npm run coverall      
+after_success:
+  - npm run coveralls     
