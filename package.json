@@ -21,15 +21,18 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.7",
+    "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "js-yaml": "^3.13.1",
     "jsonwebtoken": "^8.5.1",
+    "make-runnable": "^1.3.6",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
+    "pg": "^7.12.1",
     "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
@@ -38,11 +41,10 @@
     "eslint-plugin-import": "^2.18.2"
   },
   "scripts": {
-    "test": "nyc --reporter=text --reporter=html mocha server/tests --require @babel/polyfill --require @babel/register --timeout 50000 --exit",
-    "start": " babel-node ./server/server.js",
-    "dev": " nodemon --exec babel-node server/server.js",
-    "elint": "",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "dev": "cross-env NODE_ENV=development  nodemon --exec babel-node server/server.js",
+    "create": "cross-env NODE_ENV=development node --require @babel/register server/models/db Createtables",
+    "drop": "cross-env NODE_ENV=development node --require @babel/register server/models/db Droptables",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
