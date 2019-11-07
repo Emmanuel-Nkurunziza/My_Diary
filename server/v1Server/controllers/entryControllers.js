@@ -17,7 +17,6 @@ class Controller4entry {
     const date = entryTimeStamp();
     const entry = new Entry(entries.length + 1, title, date, description, authEmail);
     entries.push(entry);
-    // console.log(entry);
     return res.status(200).send({
       status: 200,
       message: 'Entry created successfully',

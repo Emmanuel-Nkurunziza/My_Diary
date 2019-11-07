@@ -15,7 +15,6 @@
     "@babel/runtime": "^7.6.3",
     "@hapi/joi": "^16.1.7",
     "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
@@ -36,15 +35,20 @@
     "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^6.5.1",
     "eslint-auto-fix": "^1.0.0",
     "eslint-plugin-import": "^2.18.2"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development  nodemon --exec babel-node server/server.js",
-    "create": "cross-env NODE_ENV=development node --require @babel/register server/models/db Createtables",
-    "drop": "cross-env NODE_ENV=development node --require @babel/register server/models/db Droptables",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": " cross-env NODE_ENV=development nodemon --exec babel-node server/v2Server/server.js",
+    "create": "cross-env NODE_ENV=development node --require @babel/register server/v2Server/models/db Createtables",
+    "drop": "cross-env NODE_ENV=development node --require @babel/register server/v2Server/models/db Droptables",
+    "test": "npm run drop && npm run create && cross-env NODE_ENV=development nyc --reporter=text --reporter=html mocha server/v2Server/tests --require @babel/polyfill --require @babel/register --timeout 50000 --exit"
   },
   "repository": {
     "type": "git",

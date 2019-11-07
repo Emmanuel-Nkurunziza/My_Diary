@@ -84,7 +84,7 @@
 >>-A directory having the name of the repository is generates in your local machine after cloning form the gitHub, then CD to this generated repository. Then using the following command:
 >>- then do the npm install, to install the node_modules which will help to run the project in your local machine.
 
-####To Run the Server
+#### To Run the Server
  > npm run start
 
 #### To Run the Test
