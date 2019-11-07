@@ -22,7 +22,6 @@ const authanticate = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log('token');
     return res.status(401).send({
       status: 401,
       error: error.message,
